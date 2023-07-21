@@ -1,0 +1,44 @@
+# serverless.yml
+service: hello-world-api
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: ap-south-1 # Change this to your desired AWS region
+
+plugins:
+  - serverless-offline # Add this line to enable the plugin
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - http:
+          path: hello
+          method: post
+          cors: true
+
+  reportBin: # New function for the ReportBin endpoint
+    handler: handler.reportBin
+    events:
+      - http:
+          path: reportBin
+          method: post
+          cors: true
+
+  driver: # New function for the Driver endpoint
+    handler: handler.driver
+    events:
+      - http:
+          path: driver
+          method: post
+          cors: true
+
+  uploadImage: # New function for image upload to S3
+    handler: handler.storeImageInS3
+    timeout: 900
+    events:
+      - http:
+          path: uploadImage
+          method: post
+          cors: true
